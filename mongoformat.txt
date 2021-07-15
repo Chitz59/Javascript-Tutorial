@@ -1,0 +1,63 @@
+const mongoose = require("mongoose");
+mongoose
+  .connect("mongodb://localhost:27017/chitzdata", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connection Successfull...!!!"))
+  .catch((err) => console.log(err));
+
+const playlistSchema = new mongoose.Schema({
+  name: String,
+  type: String,
+  value: Number,
+  creator: String,
+});
+
+const Playlist = new mongoose.model("Playlist", playlistSchema);
+
+const createDocument = async () => {
+  try {
+    const javaPlaylist = new Playlist({
+      name: "Java",
+      type: "Programming Language",
+      value: 13,
+      creator: "A",
+    });
+    const pythonPlaylist = new Playlist({
+      name: "Python",
+      type: "Programming Language",
+      value: 14,
+      creator: "B",
+    });
+    const angularPlaylist = new Playlist({
+      name: "Angular",
+      type: "FrontEnd",
+      value: 15,
+      creator: "C",
+    });
+    const result = await Playlist.insertMany([
+      javaPlaylist,
+      pythonPlaylist,
+      angularPlaylist,
+    ]);
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
+createDocument();
+
+const getDocument = async () => {
+  try {
+    const result = await Playlist.find({ type: "Programming Language" })
+      .select({
+        name: 1,
+      })
+      .limit(1);
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
+getDocument();
