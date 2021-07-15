@@ -1,0 +1,40 @@
+<script>
+  class Students {
+    constructor(name, age, rollno) {
+      this.myname = name;
+      this.myage = age;
+      this.myrollno = rollno;
+    }
+    biodata() {
+      console.log(
+        `Hi, my name is ${this.myname} and i am ${this.myage} years old and my roll number is ${this.myrollno}`
+      );
+    }
+  }
+
+  class Players extends Students {
+    constructor(name, age, rollno, game) {
+      super(name, age, rollno);
+      this.mygame = game;
+    }
+    biodata2() {
+      console.log(
+        `Hi, my name is ${this.myname} and i am ${this.myage} years old and my roll number is ${this.myrollno} and i am the player of this ${this.mygame} game`
+      );
+    }
+
+    play_biodata() {
+      console.log(
+        `${super.biodata()} and I am the player of this ${this.mygame} game`
+      );
+      return `${super.biodata()} and I am the player of this ${
+        this.mygame
+      } game`;
+    }
+  }
+
+  let obj1 = new Players("Chhitiz", 25, 2, "Cricket");
+  obj1.biodata();
+  obj1.biodata2();
+  obj1.play_biodata();
+</script>
